@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+<input id="name" type="string">
+<button onclick="showCookies()">Show cookies</button>
+
+<button onclick="clearOutputCookies()">Clear</button>
+
+<button onclick="reloadPage()">Reload Page</button>
+
+<div>
+    <code id="cookies"></code>
+</div>
+</body>
+
+<script>
+    function setCookie(){
+        document.cookie = document.getElementById('name').value;
+    }
+
+    function showCookies() {
+        setCookie()
+        const output = document.getElementById('cookies')
+        output.textContent = `${document.cookie}`
+    }
+
+    function clearOutputCookies() {
+        const output = document.getElementById('cookies')
+        output.textContent = ''
+    }
+    function reloadPage(){
+        location.reload()
+        showCookies()
+    }
+</script>
+<footer>
+    <p>&copy; 2022, Brandon DaSilva, Newark, NJ, 07105</p>
+</footer>
+
+<style>
+    footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 2.5rem;
+    }
+</style>
