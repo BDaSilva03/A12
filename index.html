@@ -1,43 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
 
 <head>
-    <meta charset="utf-8">
+    <title>Cookie</title>
 </head>
 
-<body>
-<input id="name" type="string">
-<button onclick="showCookies()">Show cookies</button>
+<body onload="checkCookie()">
 
-<button onclick="clearOutputCookies()">Clear</button>
+<script type="text/javascript">
 
-<button onclick="reloadPage()">Reload Page</button>
-
-<div>
-    <code id="cookies"></code>
-</div>
-</body>
-
-<script>
-    function setCookie(){
-        document.cookie = document.getElementById('name').value;
+    function setCookie(cname, cvalue, exdays) {
+        let d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+    function getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
     }
 
-    function showCookies() {
-        setCookie()
-        const output = document.getElementById('cookies')
-        output.textContent = `${document.cookie}`
-    }
-
-    function clearOutputCookies() {
-        const output = document.getElementById('cookies')
-        output.textContent = ''
-    }
-    function reloadPage(){
-        location.reload()
-        showCookies()
+    function checkCookie() {
+        let user = getCookie("username");
+        if (user != "") {
+            alert("Welcome again " + user);
+        } else {
+            user = prompt("Please enter your name:", "");
+            if (user != "" && user != null) {
+                setCookie("username", user, 30);
+            }
+        }
     }
 </script>
+</body>
+</html>
 <footer>
     <p>&copy; 2022, Brandon DaSilva, Newark, NJ, 07105</p>
 </footer>
